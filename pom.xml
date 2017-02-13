@@ -40,6 +40,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/eu.hurion.vaadin.heroku/vaadin-for-heroku -->
+            <dependency>
+                <groupId>eu.hurion.vaadin.heroku</groupId>
+                <artifactId>vaadin-for-heroku</artifactId>
+                <version>1.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
