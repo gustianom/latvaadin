@@ -30,7 +30,7 @@ public class MyUI extends UI {
 
     private Grid grid = new Grid();
     private TextField name = new TextField("Name");
-    private TextField website = new TextField("Website");
+    private TextField website = new TextField("Website;");
     private Button save = new Button("Save");
 
     @Override
