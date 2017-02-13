@@ -1,0 +1,18 @@
+<Context>
+    <Resource
+            auth="Container"
+            driverClassName="oracle.jdbc.driver.OracleDriver"
+            logAbandoned="true"
+            maxActive="20"
+            maxIdle="10"
+            minIdle="1"
+            maxWait="10000"
+            name="java:/newhos"
+            password="mli_uatpwd"
+            removeAbandoned="true"
+            reloadable="true"
+            removeAbandonedTimeout="10"
+            type="javax.sql.DataSource"
+            url="jdbc:oracle:thin:@192.168.50.111:1521:UAT"
+            username="mli_uat"/>
+</Context>

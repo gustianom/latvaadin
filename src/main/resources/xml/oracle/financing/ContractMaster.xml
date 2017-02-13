@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+* Created by PT TENMA BRIGHT SKY Generator
+* Copyright (c) 2015. PT TENMA BRIGHT SKY. ALL Right Reserved.
+* TenmaGenerator Version 1.5.beta.1
+* Generated on Tue Feb 17 11:24:48 WIB 2015
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hanwha.model.ContractMasterModel">
+
+    <resultMap id="FinContractMasterResult" type="ContractMasterModel">
+        <result property="policyId" column="POLICY_CODE"/>
+        <result property="policyCode" column="POLICY_ID"/>
+        <result property="applyCode" column="APPLY_CODE"/>
+    </resultMap>
+
+    <sql id="queryFinContractMaster">
+        SELECT "POLICY_CODE", "POLICY_ID", "APPLY_CODE" FROM t_CONTRACT_MASTER "MSP"
+    </sql>
+
+
+    <sql id="queryDynamicSearchFinContractMaster">
+        <if test="searchValue != null">
+            <if test="'' != searchValue">
+
+            </if>
+        </if>
+    </sql>
+
+    <sql id="queryDynamicFinContractMaster">
+
+    </sql>
+
+    <sql id="queryOrderingFinContractMaster">
+        <if test="sortField != null">
+            ORDER BY
+            <if test="sortField eq 'policyCode'">
+                "MSP"."POLICY_CODE"
+            </if>
+            <if test="sortField eq 'policyId'">
+                "MSP"."POLICY_ID"
+            </if>
+            <if test="sortField eq 'applyCode'">
+                "MSP"."APPLY_CODE"
+            </if>
+
+            <if test="sortOrder eq 'DESCENDING'">
+                DESC
+            </if>
+            <if test="sortOrder eq 'ASCENDING'">
+                ASC
+            </if>
+        </if>
+    </sql>
+
+    <select id="getFinContractMaster" resultMap="FinContractMasterResult" parameterType="ContractMasterModel">
+        <include refid="queryFinContractMaster"/>
+        <include refid="queryDynamicFinContractMaster"/>
+    </select>
+
+    <insert id="insertFinContractMaster" parameterType="ContractMasterModel">
+
+    </insert>
+
+    <update id="updateFinContractMaster" parameterType="ContractMasterModel">
+
+    </update>
+
+
+    <update id="deleteFinContractMaster">
+
+    </update>
+
+    <select id="listFinContractMaster" resultMap="FinContractMasterResult">
+        <include refid="queryFinContractMaster"/>
+        ORDER BY "POLICY_ID"
+    </select>
+
+
+    <select id="countTotalFinContractMaster" resultType="java.lang.Integer">
+        SELECT count("MSP"."POLICY_ID") as FinContractMaster
+        FROM T_CONTRACT_MASTER "MSP"
+        WHERE "MSP"."RECORD_STATUS" = 0
+        <include refid="queryDynamicFinContractMaster"/>
+    </select>
+
+
+    <select id="listFinContractMasterMap" resultMap="FinContractMasterResult">
+        <include refid="queryFinContractMaster"/>
+        <include refid="queryDynamicFinContractMaster"/>
+        <include refid="queryDynamicSearchFinContractMaster"/>
+        <include refid="queryOrderingFinContractMaster"/>
+        LIMIT #{max} OFFSET #{skip}
+    </select>
+
+    <select id="listAllFinContractMasterMap" resultMap="FinContractMasterResult">
+        <include refid="queryFinContractMaster"/>
+        <include refid="queryDynamicFinContractMaster"/>
+        <include refid="queryDynamicSearchFinContractMaster"/>
+        <include refid="queryOrderingFinContractMaster"/>
+    </select>
+</mapper>

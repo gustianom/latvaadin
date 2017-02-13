@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hanwha.model.MSchemaModel">
+
+    <resultMap id="FinSchemaResult" type="FinSchemaModel">
+        <result property="schemaId" column="SCHEMA_ID"/>
+        <result property="schemaName" column="SCHEMA_NAME"/>
+        <result property="financingType" column="FINANCING_TYPE"/>
+        <result property="agencyLevel" column="AGENCY_LEVEL"/>
+        <result property="productionSource" column="PRODUCTION_SOURCE"/>
+        <result property="productionSourceValue" column="PRODUCTION_SOURCE_VALUE"/>
+        <result property="periodFactor" column="PERIOD_FACTOR"/>
+        <result property="basicFinancingAmount" column="BASIC_FINANCING_AMOUNT"/>
+        <result property="justification" column="JUSTIFICATION"/>
+        <result property="financingRange" column="FINANCING_RANGE"/>
+    </resultMap>
+
+    <sql id="queryFinSchema">
+        SELECT "MSP"."SCHEMA_ID", "MSP"."SCHEMA_NAME", "MSP"."FINANCING_TYPE", "MSP"."AGENCY_LEVEL",
+        "MSP"."PRODUCTION_SOURCE", "MSP"."PRODUCTION_SOURCE_VALUE", "MSP"."PERIOD_FACTOR",
+        "MSP"."BASIC_FINANCING_AMOUNT", "MSP"."JUSTIFICATION", "MSP"."FINANCING_RANGE" FROM "M_SCHEMA" "MSP" WHERE
+        "MSP"."RECORD_STATUS" = 0
+    </sql>
+
+    <sql id="queryDynamicSearchFinSchema">
+        <if test="searchValue != null">
+            <if test="'' != searchValue">
+                AND (
+                UPPER( "MSP"."SCHEMA_NAME") LIKE UPPER(#{searchValue})
+                )
+            </if>
+        </if>
+    </sql>
+
+    <sql id="queryDynamicFinSchema">
+        <if test="schemaId != null">
+            <if test="schemaId != ''">
+                AND "MSP"."SCHEMA_ID" = #{schemaId}
+            </if>
+        </if>
+        <if test="schemaName != null">
+            <if test="schemaName != ''">
+                AND "MSP"."SCHEMA_NAME" = #{schemaName}
+            </if>
+        </if>
+        <if test="financingType != null">
+            <if test="financingType != ''">
+                AND "MSP"."FINANCING_TYPE" = #{financingType}
+            </if>
+        </if>
+        <if test="agencyLevel != null">
+            <if test="agencyLevel != ''">
+                AND "MSP"."AGENCY_LEVEL" = #{agencyLevel}
+            </if>
+        </if>
+        <if test="productionSource != null">
+            <if test="productionSource != ''">
+                AND "MSP"."PRODUCTION_SOURCE" = #{productionSource}
+            </if>
+        </if>
+        <if test="productionSourceValue != null">
+            <if test="productionSourceValue != ''">
+                AND "MSP"."PRODUCTION_SOURCE_VALUE" = #{productionSourceValue}
+            </if>
+        </if>
+        <if test="periodFactor != null">
+            <if test="periodFactor != ''">
+                AND "MSP"."PERIOD_FACTOR" = #{periodFactor}
+            </if>
+        </if>
+        <if test="basicFinancingAmount != null">
+            <if test="basicFinancingAmount != ''">
+                AND "MSP"."BASIC_FINANCING_AMOUNT" = #{basicFinancingAmount}
+            </if>
+        </if>
+        <if test="justification != null">
+            <if test="justification != ''">
+                AND "MSP"."JUSTIFICATION" = #{justification}
+            </if>
+        </if>
+        <if test="financingRange != null">
+            <if test="financingRange != ''">
+                AND "MSP"."FINANCING_RANGE" = #{financingRange}
+            </if>
+        </if>
+    </sql>
+
+    <sql id="queryOrderingFinSchema">
+        <if test="sortField != null">
+            ORDER BY
+            <if test="sortField eq 'schemaId'">
+                "MSP"."SCHEMA_ID"
+            </if>
+            <if test="sortField eq 'schemaName'">
+                "MSP"."SCHEMA_NAME"
+            </if>
+            <if test="sortField eq 'financingType'">
+                "MSP"."FINANCING_TYPE"
+            </if>
+            <if test="sortField eq 'agencyLevel'">
+                "MSP"."AGENCY_LEVEL"
+            </if>
+            <if test="sortField eq 'productionSource'">
+                "MSP"."PRODUCTION_SOURCE"
+            </if>
+            <if test="sortField eq 'productionSourceValue'">
+                "MSP"."PRODUCTION_SOURCE_VALUE"
+            </if>
+            <if test="sortField eq 'periodFactor'">
+                "MSP"."PERIOD_FACTOR"
+            </if>
+            <if test="sortField eq 'basicFinancingAmount'">
+                "MSP"."BASIC_FINANCING_AMOUNT"
+            </if>
+            <if test="sortField eq 'justification'">
+                "MSP"."JUSTIFICATION"
+            </if>
+            <if test="sortField eq 'financingRange'">
+                "MSP"."FINANCING_RANGE"
+            </if>
+            <if test="sortOrder eq 'DESCENDING'">
+                DESC
+            </if>
+            <if test="sortOrder eq 'ASCENDING'">
+                ASC
+            </if>
+        </if>
+    </sql>
+
+    <select id="getFinSchema" resultMap="FinSchemaResult" parameterType="FinSchemaModel">
+        <include refid="queryFinSchema"/>
+        <include refid="queryDynamicFinSchema"/>
+    </select>
+
+    <insert id="insertFinSchema" parameterType="FinSchemaModel">
+        INSERT INTO
+        "M_SCHEMA" ("SCHEMA_ID", "SCHEMA_NAME", "FINANCING_TYPE", "AGENCY_LEVEL", "PRODUCTION_SOURCE",
+        "PRODUCTION_SOURCE_VALUE", "PERIOD_FACTOR", "BASIC_FINANCING_AMOUNT", "JUSTIFICATION", "FINANCING_RANGE",
+        "CREATED_BY", "CREATED_DATE", "CREATED_FROM", "UPDATED_BY", "UPDATED_DATE", "UPDATED_FROM",
+        "RECORD_STATUS")
+        VALUES(
+        #{schemaId}, #{schemaName}, #{financingType}, #{agencyLevel}, #{productionSource}, #{productionSourceValue},
+        #{periodFactor}, #{basicFinancingAmount}, #{justification}, #{financingRange}, #{createdBy}, SYSDATE,
+        #{createdFrom}, #{updatedBy}, SYSDATE, #{updatedFrom}, 0)
+    </insert>
+
+    <update id="updateFinSchema" parameterType="FinSchemaModel">
+        UPDATE
+        "M_SCHEMA"
+        SET
+        "SCHEMA_ID" = #{schemaId},
+        "SCHEMA_NAME" = #{schemaName},
+        "FINANCING_TYPE" = #{financingType},
+        "AGENCY_LEVEL" = #{agencyLevel},
+        "PRODUCTION_SOURCE" = #{productionSource},
+        "PRODUCTION_SOURCE_VALUE" = #{productionSourceValue},
+        "PERIOD_FACTOR" = #{periodFactor},
+        "BASIC_FINANCING_AMOUNT" = #{basicFinancingAmount},
+        "JUSTIFICATION" = #{justification},
+        "FINANCING_RANGE" = #{financingRange}
+        ,"UPDATED_BY" = #{updatedBy}
+        ,"UPDATED_DATE" = SYSDATE,
+        ,"UPDATED_FROM" = #{updatedFrom}
+        WHERE
+        "SCHEMA_ID" = #{schemaId}
+    </update>
+
+
+    <update id="deleteFinSchema">
+        UPDATE "M_SCHEMA"
+        SET "RECORD_STATUS" = 1
+        ,"UPDATED_DATE" = SYSDATE
+        ,"UPDATED_BY" = #{updatedBy}
+        ,"UPDATED_FROM" = #{updatedFrom}
+        WHERE
+        "SCHEMA_ID" = #{schemaId}
+    </update>
+
+    <select id="listFinSchema" resultMap="FinSchemaResult">
+        <include refid="queryFinSchema"/>
+        ORDER BY "SCHEMA_ID"
+    </select>
+
+
+    <select id="countTotalFinSchema" resultType="java.lang.Integer">
+        SELECT count("MSP"."SCHEMA_ID") as FinSchema
+        FROM "M_SCHEMA" "MSP"
+        WHERE "MSP"."RECORD_STATUS" = 0
+        <include refid="queryDynamicFinSchema"/>
+    </select>
+
+    <select id="listFinSchemaMap" resultMap="FinSchemaResult">
+        <![CDATA[
+            SELECT X.* FROM (
+                SELECT A.*, ROWNUM RN FROM(
+        ]]>
+
+        <include refid="queryFinSchema"/>
+        <include refid="queryDynamicFinSchema"/>
+        <include refid="queryDynamicSearchFinSchema"/>
+        <include refid="queryOrderingFinSchema"/>
+        <![CDATA[
+            ) A
+            WHERE ROWNUM <= #{max}) X
+        WHERE x.RN > #{skip}
+        ]]>
+    </select>
+
+    <select id="listAllFinSchemaMap" resultMap="FinSchemaResult">
+        <include refid="queryFinSchema"/>
+        <include refid="queryDynamicFinSchema"/>
+        <include refid="queryDynamicSearchFinSchema"/>
+        <include refid="queryOrderingFinSchema"/>
+    </select>
+</mapper>

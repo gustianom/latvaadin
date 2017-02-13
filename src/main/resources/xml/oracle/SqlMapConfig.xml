@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---
+  ~ Copyright (c) 2014. PT Tenma Bright Sky
+  --><!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="ContractMasterModel" type="com.hanwha.model.ContractMasterModel"/>
+        <typeAlias alias="FinSchemaModel" type="com.hanwha.model.SchemaModel"/>
+
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="MANAGED"/>
+            <dataSource type="JNDI">
+                <property name="data_source" value="java:jboss/datasources/oracleDS"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <mappers>
+
+        <mapper resource="/xml/oracle/financing/ContractMaster.xml"/>
+    </mappers>
+
+</configuration>
